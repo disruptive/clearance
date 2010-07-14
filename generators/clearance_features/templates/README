@@ -1,6 +1,10 @@
 *******************************************************************************
 
-Running Cucumber Features with Clearance and Rails 2.3.6 to 2.3.8:
+Running Cucumber Features with Clearance and Rails 2.3.6 through 2.3.8:
+
+Due to a conflict between recent versions of rails and rack 1.1.0 
+(visit this link for details: http://bit.ly/bWjrmE), you'll need to add a bit
+of code to a file in your config/environments directory.
 
 If you have previously "script/generate cucumber", and, therefore, have a 
 "cucumber.rb" file in your config/environments directory, add the 

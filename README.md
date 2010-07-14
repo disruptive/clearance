@@ -108,6 +108,9 @@ Edit config/environments/cucumber.rb to include these lines:
 
     config.gem 'factory_girl'
     config.action_mailer.default_url_options = { :host => 'localhost:3000' }
+    
+Users of Rails 2.3.6 to 2.3.8 also need to add special cookie handling code to 
+config/environments/cucumber.rb. See [this link](http://bit.ly/bWjrmE) for details.
 
 Then run rake!
 
