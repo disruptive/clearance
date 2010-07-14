@@ -22,7 +22,7 @@ config.action_controller.allow_forgery_protection    = false
 config.action_mailer.delivery_method = :test
 
 config.gem 'shoulda',
-  :version => '>= 2.10.3'
+  :version => '= 2.10.3'
 config.gem 'factory_girl',
   :version => '>= 1.2.3'
 config.gem 'cucumber-rails',
@@ -32,3 +32,21 @@ config.gem 'webrat',
   :lib     => false,
   :version => '>= 0.6.0'
 config.gem 'mocha'
+
+class RackRailsCookieHeaderHack
+  def initialize(app)
+    @app = app
+  end
+
+  def call(env)
+    status, headers, body = @app.call(env)
+    if headers['Set-Cookie'] && headers['Set-Cookie'].respond_to?(:collect!)
+      headers['Set-Cookie'].collect! { |h| h.strip }
+    end
+    [status, headers, body]
+  end
+end
+
+config.after_initialize do
+  ActionController::Dispatcher.middleware.insert_before(ActionController::Base.session_store, RackRailsCookieHeaderHack)
+end

@@ -1,0 +1,29 @@
+*******************************************************************************
+
+Running Cucumber Features with Clearance and Rails 2.3.6 to 2.3.8:
+
+If you have previously "script/generate cucumber", and, therefore, have a 
+"cucumber.rb" file in your config/environments directory, add the 
+"RackRailsCookieHeaderHack" code below to "config/environments/cucumber.rb". 
+Otherwise, place the "RackRailsCookieHeaderHack" code in your 
+"config/environments/test.rb" file.
+
+class RackRailsCookieHeaderHack
+ def initialize(app)
+   @app = app
+ end
+
+ def call(env)
+   status, headers, body = @app.call(env)
+   if headers['Set-Cookie'] && headers['Set-Cookie'].respond_to?(:collect!)
+     headers['Set-Cookie'].collect! { |h| h.strip }
+   end
+   [status, headers, body]
+ end
+end
+
+config.after_initialize do
+ ActionController::Dispatcher.middleware.insert_before(ActionController::Base.session_store, RackRailsCookieHeaderHack)
+end
+   
+*******************************************************************************

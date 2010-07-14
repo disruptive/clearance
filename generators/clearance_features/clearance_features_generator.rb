@@ -12,6 +12,7 @@ class ClearanceFeaturesGenerator < Rails::Generator::Base
        "features/sign_up.feature",
        "features/password_reset.feature"].each do |file|
         m.file file, file
+        m.readme "README"
        end
     end
   end
