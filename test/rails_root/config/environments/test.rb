@@ -22,7 +22,7 @@ config.action_controller.allow_forgery_protection    = false
 config.action_mailer.delivery_method = :test
 
 config.gem 'shoulda',
-  :version => '>= 2.9.1'
+  :version => '>= 2.10.3'
 config.gem 'factory_girl',
   :version => '>= 1.2.3'
 config.gem 'cucumber-rails',
@@ -31,3 +31,4 @@ config.gem 'cucumber-rails',
 config.gem 'webrat',
   :lib     => false,
   :version => '>= 0.6.0'
+config.gem 'mocha'
